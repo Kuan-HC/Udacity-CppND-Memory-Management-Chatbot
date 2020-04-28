@@ -31,7 +31,9 @@ public:
     ~ChatBotPanelDialog();
 
     // getter / setter
-    ChatLogic *GetChatLogicHandle() { return _chatLogic; }
+    /* Task 1 : Exclusive Ownership 1 */
+    /* _chatLogic type is unique_ptr<ChatLogic>, use .get() to acquire internal raw pointer */
+    ChatLogic *GetChatLogicHandle() { return _chatLogic.get(); }
 
     // events
     void paintEvent(wxPaintEvent &evt);
