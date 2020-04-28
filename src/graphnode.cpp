@@ -10,8 +10,9 @@ GraphNode::~GraphNode()
 {
     //// STUDENT CODE
     ////
-
-    delete _chatBot; 
+    /* Task 0*/
+    /* _chatBot was not created in GraphNode */
+    //delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
