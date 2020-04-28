@@ -120,7 +120,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
     // create chat logic instance
     /* Task 1 : Exclusive Ownership 1 */
     /* make _chatLogic an exclusive resource to class ChatbotPanelDialog */
-    std::unique_ptr<ChatLogic> _chatLogic = std::make_unique<ChatLogic>();
+    _chatLogic = std::make_unique<ChatLogic>();
     //_chatLogic = new ChatLogic(); /* remove this line before delivery */
 
     // pass pointer to chatbot dialog so answers can be displayed in GUI

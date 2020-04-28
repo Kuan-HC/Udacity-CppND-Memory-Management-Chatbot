@@ -19,7 +19,7 @@ private:
     /* Task 1 : Exclusive Ownership 1 */
     /* make _chatLogic an exclusive resource to class ChatbotPanelDialog */
 
-    std::unique_ptr<ChatLogic> _chatLogic = std::make_unique<ChatLogic>();
+    std::unique_ptr<ChatLogic> _chatLogic;
     //ChatLogic *_chatLogic;   /* remove this line before delivery */
 
     ////
