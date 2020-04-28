@@ -2,6 +2,7 @@
 #define CHATGUI_H_
 
 #include <wx/wx.h>
+#include <memory>
 
 class ChatLogic; // forward declaration
 
@@ -15,8 +16,11 @@ private:
 
     //// STUDENT CODE
     ////
+    /* Task 1 : Exclusive Ownership 1 */
+    /* make _chatLogic an exclusive resource to class ChatbotPanelDialog */
 
-    ChatLogic *_chatLogic;
+    std::unique_ptr<ChatLogic> _chatLogic = std::make_unique<ChatLogic>();
+    //ChatLogic *_chatLogic;   /* remove this line before delivery */
 
     ////
     //// EOF STUDENT CODE
