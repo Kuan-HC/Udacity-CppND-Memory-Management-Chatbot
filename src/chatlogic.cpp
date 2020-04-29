@@ -168,8 +168,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             // edge->SetChildNode(*childNode);  /* was */
                             // edge->SetParentNode(*parentNode); /* was */
                             /* Note: parentNode and childNode content pointer point to pointer */
-                            edge->SetChildNode(*childNode->get());
-                            edge->SetParentNode(*parentNode->get());
+                            edge->SetChildNode((*childNode).get());
+                            edge->SetParentNode((*parentNode).get());
                             _edges.push_back(edge);
 
                             // find all keywords for current node
@@ -214,7 +214,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
             if (rootNode == nullptr)
             {   
                 //rootNode = *it; // assign current node to root /* was */
-                rootNode = *it ->get(); // assign current node to root
+                rootNode = (*it).get(); // assign current node to root
             }
             else
             {
