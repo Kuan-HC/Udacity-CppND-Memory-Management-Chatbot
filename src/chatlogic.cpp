@@ -165,7 +165,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](std::unique_ptr<GraphNode>& node) { return node->GetID() == std::stoi(childToken->second); });
 
                             // create new edge
-                            std::shared_ptr<GraphEdge> edge = std::make_shared<GraphEdge>(id);
+                            std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);
                             // edge->SetChildNode(*childNode);  /* was */
                             // edge->SetParentNode(*parentNode); /* was */
                             /* Note: parentNode and childNode content pointer point to pointer */
@@ -179,7 +179,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             // store reference in child node and parent node
                             
                             (*childNode)->AddEdgeToParentNode(edge.get());
-                            (*parentNode)->AddEdgeToChildNode(edge.get());
+                            (*parentNode)->AddEdgeToChildNode(std::move(edge));
                         }
 
                         ////
