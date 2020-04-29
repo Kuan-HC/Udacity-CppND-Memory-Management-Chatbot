@@ -58,9 +58,11 @@ ChatBot::ChatBot(const ChatBot &source)
     /* allocate heap memory */
     _image = new wxBitmap();
     /* copy contents */
+    *_image = *source._image;
+    /* share contents */
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-    _image = source._image;
+    
 }
 /* 2. Assign Constructor */
 ChatBot &ChatBot::operator=(const ChatBot &source)
@@ -74,7 +76,9 @@ ChatBot &ChatBot::operator=(const ChatBot &source)
     if (_image != nullptr)
         delete _image;
     _image = new wxBitmap();
-    _image = source._image;
+    /* copy contents */
+    *_image = *source._image;
+    /* share contents */
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
 
