@@ -21,7 +21,7 @@ ChatBot::ChatBot()
 ChatBot::ChatBot(std::string filename)
 {
     std::cout << "ChatBot Constructor" << std::endl;
-    
+
     // invalidate data handles
     _chatLogic = nullptr;
     _rootNode = nullptr;
@@ -35,7 +35,7 @@ ChatBot::~ChatBot()
     std::cout << "ChatBot Destructor" << std::endl;
 
     // deallocate heap memory
-    if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    if (_image != NULL) // Attention: wxWidgets used NULL and not nullptr
     {
         delete _image;
         _image = NULL;
@@ -44,6 +44,72 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+/* Task 2 : The Rule Of Five */
+
+/*************************************************
+* Clue: In destructor ~ChatBot()
+*       only _image is deleted
+* **********************************************/
+/* 1. Copy Constructor */
+ChatBot::ChatBot(const ChatBot &source)
+{
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    std::cout << "Copying instance at" << &source << " to instance at" << this << std::endl;
+    /* allocate heap memory */
+    _image = new wxBitmap();
+    /* copy contents */
+    *_chatLogic = source._chatLogic;
+    *_rootNode = source._rootNode;
+    *_image = source._image;
+}
+/* 2. Assign Constructor */
+ChatBot &ChatBo::operator=(const ChatBot &source)
+{
+    if (this == &source)
+    {
+        return this;
+    }
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    std::cout << "Assining instance at" << &source << " to instance at" << this << std::endl;
+    if (_image != nullptr)
+        delete _image;
+    _image = new wxBitmap();
+    *_image = source._image;
+    *_chatLogic = source._chatLogic;
+    *_rootNode = source._rootNode;
+
+    return *this;
+}
+/* 3. Move Constructor */
+ChatBot::ChatBot(ChatBot &&source)
+{
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    std::cout << "Moving instance at" << &source << " to instance at" << this << std::endl;
+    *_image = source._image;
+    *_chatLogic = source._chatLogic;
+    *_rootNode = source._rootNode;
+
+    source._image = nullptr;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+}
+/* 4. Move Assign Constructor */
+ChatBot &ChatBot::operator=(ChatBot &&source)
+{
+    std::cout << "ChatBot Move Assign Constructor" << std::endl;
+    std::cout << "Moving(Assigning) instance at" << &source << " to instance at" << this << std::endl;
+    if (_image != nullptr)
+        delete _image;
+    *_image = source._image;
+    *_chatLogic = source._chatLogic;
+    *_rootNode = source._rootNode;
+
+    source._image = nullptr;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+
+    return *this;
+}
 
 ////
 //// EOF STUDENT CODE
