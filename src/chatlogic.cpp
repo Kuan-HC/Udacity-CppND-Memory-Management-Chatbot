@@ -234,6 +234,11 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     // // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     // _chatBot->SetChatLogicHandle(this);
+    
+    /********************************************************
+    * reference
+    * https://knowledge.udacity.com/questions/117912
+    ********************************************************/
     std::cout << "Task 5.1 A local ChatBot instance" <<std::endl; /* for debug */
     ChatBot chat_local("../images/chatbot.png");
     /************************************************ 

@@ -165,6 +165,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
 
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
+    //_chatLogic->GetChatBotPanelDialog()->PrintChatbotResponse(answer); /* not test */
 }
 
 int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)
