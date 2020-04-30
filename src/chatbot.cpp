@@ -54,11 +54,11 @@ ChatBot::~ChatBot()
 ChatBot::ChatBot(const ChatBot &source)
 {
     std::cout << "ChatBot Copy Constructor" << std::endl;
-    std::cout << "Copying instance at" << &source << " to instance at" << this << std::endl;
+    //std::cout << "Copying instance at" << &source << " to instance at" << this << std::endl; /* for debug */
     /* allocate heap memory */
     _image = new wxBitmap();
     /* copy contents */
-    *_image = *source._image;
+    _image = source._image;
     /* share contents */
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
@@ -72,12 +72,12 @@ ChatBot &ChatBot::operator=(const ChatBot &source)
         return *this;
     }
     std::cout << "ChatBot Copy Constructor" << std::endl;
-    std::cout << "Assining instance at" << &source << " to instance at" << this << std::endl;
+    //std::cout << "Assining instance at" << &source << " to instance at" << this << std::endl; /* for debug */
     if (_image != nullptr)
         delete _image;
     _image = new wxBitmap();
     /* copy contents */
-    *_image = *source._image;
+    _image = source._image;
     /* share contents */
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
@@ -88,7 +88,7 @@ ChatBot &ChatBot::operator=(const ChatBot &source)
 ChatBot::ChatBot(ChatBot &&source)
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
-    std::cout << "Moving instance at" << &source << " to instance at" << this << std::endl;
+    //std::cout << "Moving instance at" << &source << " to instance at" << this << std::endl; /* for debug */
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
@@ -101,7 +101,7 @@ ChatBot::ChatBot(ChatBot &&source)
 ChatBot &ChatBot::operator=(ChatBot &&source)
 {
     std::cout << "ChatBot Move Assign Constructor" << std::endl;
-    std::cout << "Moving(Assigning) instance at" << &source << " to instance at" << this << std::endl;
+    // std::cout << "Moving(Assigning) instance at" << &source << " to instance at" << this << std::endl;  /* for debug */
     if (_image != nullptr)
         delete _image;
     _image = source._image;
@@ -163,6 +163,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
 
+    _chatLogic->SetChatbotHandle(this);
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
     //_chatLogic->GetChatBotPanelDialog()->PrintChatbotResponse(answer); /* not test */
