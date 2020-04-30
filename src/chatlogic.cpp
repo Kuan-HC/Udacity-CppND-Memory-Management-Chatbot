@@ -240,10 +240,10 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         _chatLogic = nullptr;
         _rootNode = nullptr;
     ************************************************/
-    std::cout << "Task 5.2 set _chat and _root" <<std::endl; /* for debug */
+    std::cout << "Task 5.2 set _chat and _root" << std::endl; /* for debug */
     chat_local.SetChatLogicHandle(this);
     chat_local.SetRootNode(rootNode);
-    SetChatbotHandle(&chat_local)
+    SetChatbotHandle(&chat_local);
     std::cout << "Task 5.3 call MoveChatbotHere" <<std::endl; /* for debug */
     rootNode->MoveChatbotHere(std::move(_chatBot));
     
