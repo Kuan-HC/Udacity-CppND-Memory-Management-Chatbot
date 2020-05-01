@@ -46,22 +46,22 @@ ChatBot::~ChatBot()
 ////
 /* Task 2 : The Rule Of Five */
 
-/*************************************************
-* Clue: In destructor ~ChatBot()
-*       only _image is deleted
-* **********************************************/
+/****************************************************
+* In destructor ~ChatBot() only _image is deleted
+* ***************************************************/
 /* 1. Copy Constructor */
 ChatBot::ChatBot(const ChatBot &source)
 {
     std::cout << "ChatBot Copy Constructor" << std::endl;
-    //std::cout << "Copying instance at" << &source << " to instance at" << this << std::endl; /* for debug */
-    /* allocate heap memory */
+    /* allocate memory */
     _image = new wxBitmap();
     /* copy contents */
     *_image = *source._image;
     /* share contents */
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
     
 }
 /* 2. Assign Constructor */
@@ -71,8 +71,11 @@ ChatBot &ChatBot::operator=(const ChatBot &source)
     {
         return *this;
     }
-    std::cout << "ChatBot Copy Constructor" << std::endl;
-    //std::cout << "Assining instance at" << &source << " to instance at" << this << std::endl; /* for debug */
+    std::cout << "ChatBot Copy Assignment Constructor" << std::endl;
+	/****************************************************************************
+	* Note: Not necessary to add conditon to delete _image if _image == nullptr
+	* but logically make sense
+	****************************************************************************/
     if (_image != nullptr)
         delete _image;
     _image = new wxBitmap();
@@ -81,6 +84,8 @@ ChatBot &ChatBot::operator=(const ChatBot &source)
     /* share contents */
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
 
     return *this;
 }
@@ -88,29 +93,34 @@ ChatBot &ChatBot::operator=(const ChatBot &source)
 ChatBot::ChatBot(ChatBot &&source)
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
-    //std::cout << "Moving instance at" << &source << " to instance at" << this << std::endl; /* for debug */
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
+    /* clear source */
     source._image = nullptr;
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
+    source._currentNode = nullptr;
 }
 /* 4. Move Assign Constructor */
 ChatBot &ChatBot::operator=(ChatBot &&source)
 {
-    std::cout << "ChatBot Move Assign Constructor" << std::endl;
-    // std::cout << "Moving(Assigning) instance at" << &source << " to instance at" << this << std::endl;  /* for debug */
+    std::cout << "ChatBot Move Assignment Constructor" << std::endl;
     if (_image != nullptr)
         delete _image;
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
 
+    /* clear source */
     source._image = nullptr;
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
+    source._currentNode = nullptr;
 
     return *this;
 }
@@ -163,10 +173,8 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
 
-    _chatLogic->SetChatbotHandle(this);
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
-    //_chatLogic->GetChatBotPanelDialog()->PrintChatbotResponse(answer); /* not test */
 }
 
 int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)
