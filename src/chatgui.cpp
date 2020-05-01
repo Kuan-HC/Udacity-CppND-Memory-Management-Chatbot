@@ -139,7 +139,7 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
     /* Task 1 : Exclusive Ownership 1 */
     /* make _chatLogic an exclusive resource to class ChatbotPanelDialog */
     /* _chatLogic is a unique smart pointer, no need to explicitly delete it */
-    / *was: delete _chatLogic ;*/
+    /* was: delete _chatLogic ; */
 
     ////
     //// EOF STUDENT CODE
